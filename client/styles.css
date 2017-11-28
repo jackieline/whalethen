@@ -7,29 +7,19 @@ body {
 .App {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 0.20fr 0.20fr 5fr;
-  grid-template-areas: "navbar search" "createbox search" "timeline search";
-}
-
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  grid-template-rows: 0.20fr 0.20fr 0.20fr 5fr;
+  grid-template-areas: "navbar navbar" "createTimeline createbox" "lookupTimeline search" "timeline search";
 }
 
 .container {
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 10px;
 }
 
 .day {
   display: flex;
   min-height: min-content;
+  background: white;
 }
 
 .dayTitle {
@@ -100,6 +90,12 @@ body {
 }
 
 .title {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  text-align: center;
   font-size: 32pt;
   font-weight: bold;
   font-family: 'Sacramento', cursive;
@@ -135,24 +131,34 @@ input {
 
 .createBox {
   grid-area: createbox;
+  background-color: #9CCEFF;
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
   padding: 5px;
 }
 
-.timelineParams {
-  display: flex;
-  grid-area: navbar;
-  justify-content: space-around;
+.timelineLookUp {
+  grid-area: lookupTimeline;
 }
 
-.timelineParams button {
-  background: white;
+/* .timelineName {
+  grid-area: createTimeline;
+} */
+
+.timelineParams {
+  display: flex;
+  grid-area: createTimeline;
+  justify-content: space-around;
+  background-color: #9CCEFF;
+}
+
+/* .timelineParams button {
+  background: rgb(148, 36, 36);
   border-radius: 2px;
   height: 33%;
   align-self: center;
-}
+} */
 
 .timeline {
   display: flex;
@@ -166,4 +172,16 @@ input {
 
 .event {
   margin: 5px;
+}
+
+button {
+  background-color: rgb(56, 222, 225); /* Green */
+  border: none;
+  color: white;
+  border-radius: 1px;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }

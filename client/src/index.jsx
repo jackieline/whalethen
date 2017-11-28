@@ -32,7 +32,9 @@ class App extends React.Component {
     this.getTrip = this.getTrip.bind(this);
     this.handleID = this.handleID.bind(this);
     this.handleName = this.handleName.bind(this);
+    this.onLookupEnter = this.onLookupEnter.bind(this);
     this.onCreateDaySelect = this.onCreateDaySelect.bind(this);
+    this.onCreateEnter = this.onCreateEnter.bind(this);
     this.handleNewEvent = this.handleNewEvent.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
     this.createEvent = this.createEvent.bind(this);
@@ -71,11 +73,24 @@ class App extends React.Component {
     }
   }
 
+  onCreateEnter(event) {
+    if (event.key === 'Enter') {
+      this.createEvent();
+    }
+  }
+
   onCreateDaySelect(e) {
     this.setState({
       createEventDay: e.target.value,
     });
   }
+
+  onLookupEnter(event) {
+    if (event.key === 'Enter') {
+      this.getTrip();
+    }
+  }
+
   getTrip() {
     axios.get(`/timeline/${this.state.timelineName}/${this.state.timelineId}`)
       .then(({ data }) => {
@@ -137,8 +152,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1 className="title">WhaleThen</h1>
         <div className="container timelineParams">
-          <div className="title">WhaleThen</div>
+          <div className="label">{this.state.timelineName}</div>
+          <div className="label">{this.state.timelineId}</div>
+
           <TimelineInputBox
             onInput={this.onInputChange}
             onEnter={this.onEnter}
@@ -155,23 +173,26 @@ class App extends React.Component {
             className="scheduleSubmit"
             onClick={() => this.onSubmit()}
           >
-            Make New Schedule
+            New Schedule
           </button>
-          <TimelineLookUp
-            getTrip={this.getTrip}
-            handleID={this.handleID}
-            handleName={this.handleName}
-          />
         </div>
         <CreateEventBox
           timelineName={this.state.timelineName}
+          timelineId={this.state.timelineId}
           addNewEvent={this.addNewEvent}
           numberOfDays={this.state.numberOfDays}
           onCreateDaySelect={this.onCreateDaySelect}
+          onCreateEnter={this.onCreateEnter}
           createEventDay={this.state.createEventDay}
           handleNewEvent={this.handleNewEvent}
           handleNewAddress={this.handleNewAddress}
           createEvent={this.createEvent}
+        />
+        <TimelineLookUp
+          getTrip={this.getTrip}
+          handleID={this.handleID}
+          handleName={this.handleName}
+          onLookupEnter={this.onLookupEnter}
         />
         <Timeline timelineData={this.state.timelineData} timelineId={this.state.timelineId} />
         <Search

@@ -36,19 +36,19 @@ const Event = mongoose.model('Event', eventSchema);
 
 const updateVotes = (timelineId, day, eventId, votes) => {
   return Day.findAsync({
-    day: day,
-    timelineId: timelineId, 
-    })
-  .then(results => {
-    let event = results[0].events.id(eventId)
-    event.votes = votes;
-    return results[0].saveAsync((err => {
-      if (err) {
-        console.error(err);
-      }
-    }))
-  });  
-}
+    day,
+    timelineId,
+  })
+    .then((results) => {
+      const event = results[0].events.id(eventId)
+      event.votes = votes;
+      return results[0].saveAsync(((err) => {
+        if (err) {
+          console.error(err);
+        }
+      }));
+    });
+};
 
 const addNewTimeline = (timelineId, numberOfDays, timelineName) => {
   const timeline = [];

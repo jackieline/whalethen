@@ -7,13 +7,15 @@ const SearchBar = props => (
       id="location"
       type="text"
       placeholder="location"
-      onKeyUp={props.handleLoc}
+      onChange={props.handleLoc}
+      onKeyUp={event => props.onEnter(event)}
     />
     <input
       id="category"
       type="text"
       placeholder="category"
-      onKeyUp={props.handleCat}
+      onChange={props.handleCat}
+      onKeyUp={event => props.onEnter(event)}
     />
     <button className="searchSubmit" onClick={props.onSubmit}>Search</button>
   </div>
@@ -21,6 +23,7 @@ const SearchBar = props => (
 
 SearchBar.propTypes = {
   onSubmit: propTypes.func.isRequired,
+  onEnter: propTypes.func.isRequired,
   handleLoc: propTypes.func.isRequired,
   handleCat: propTypes.func.isRequired,
 };
